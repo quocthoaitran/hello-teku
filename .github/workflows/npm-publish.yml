@@ -1,8 +1,6 @@
 name: Publish
 
 on:
-  # release:
-  #   types: [published]
   issue_comment:
     types: [created, edited]
 
@@ -13,14 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: git config user.name quocthoaitran && git config user.email quocthoaitran@gmail.com
       - uses: actions/setup-node@v1
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
       - run: yarn version --patch
       - run: yarn install
-      # - run: yarn version patch
       - run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
