@@ -7,19 +7,6 @@ on:
     types: [created, edited]
 
 jobs:
-  # build:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v1
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: 14
-  #         registry-url: https://registry.npmjs.org/
-  #     - run: yarn install
-  #     - run: yarn publish --access public
-  #       env:
-  #         NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
   issue_commented:
     name: Issue comment
     if: ${{ !github.event.issue.pull_request }} && constrains(github.event.comment.body, 'Release')
@@ -30,6 +17,7 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
+      - run: yarn version --patch
       - run: yarn install
       # - run: yarn version patch
       - run: yarn publish --access public
