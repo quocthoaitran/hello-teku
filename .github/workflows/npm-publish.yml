@@ -22,7 +22,7 @@ jobs:
 
   issue_commented:
     name: Issue comment
-    if: ${{ !github.event.issue.pull_request && constrains(github.event.comment.body, 'Release' }}
+    if: ${{ !github.event.issue.pull_request }} && constrains(github.event.comment.body, 'Release')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
