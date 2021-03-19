@@ -7,7 +7,7 @@ on:
 jobs:
   issue_commented:
     name: Issue comment
-    if: ${{ !github.event.issue.pull_request }} && constrains(github.event.comment.body, 'Release')
+    if: ${{ !github.event.issue.pull_request }} && constrains(github.event.comment.body, 'Release \#')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -19,4 +19,13 @@ jobs:
       - run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - uses: actions/move-tasks@v1
+        with:
+          repository: quocthoaitran/hello-teku
+          project: quocthoaitran/hello-teku
+          fromCards: >
+            $project
+              > columns(name is Merged)
+              > cards(github.event.issue.id)
+          toColumn: $project > columns(name is Released)
     
