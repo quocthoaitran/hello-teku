@@ -21,11 +21,12 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - uses: hungluu/move-tasks@v1
         with:
+          actionToken: ${{secrets.GIT_TOKEN}}
           repository: quocthoaitran/hello-teku
           project: quocthoaitran/hello-teku
           fromCards: >
             $project
               > columns(name is Merged)
-              > cards(github.event.issue.id)
+              > cards(contentId is $context.issue.id)
           toColumn: $project > columns(name is Released)
     
