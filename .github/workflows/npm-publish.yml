@@ -23,7 +23,7 @@ jobs:
         with:
           actionToken: ${{secrets.GIT_TOKEN}}
           repository: quocthoaitran/hello-teku
-          project: 1
+          project: quocthoaitran/hello-teku/projects/1
           fromCards: >
             $project
               > columns(name is Merged)
