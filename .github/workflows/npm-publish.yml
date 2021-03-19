@@ -27,6 +27,6 @@ jobs:
           fromCards: >
             $project
               > columns(name is Merged)
-              > cards(contentId is "${{ github.event.issue.number }}")
+              > cards(contentId is "${{ github.event.issue.id }}")
           toColumn: $project > columns(name is Released)
     
