@@ -19,7 +19,7 @@ jobs:
       - run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-      - uses: hungluu/move-tasks@v1
+      - uses: hungluu/move-tasks@v2
         with:
           actionToken: ${{secrets.GIT_TOKEN}}
           repository: quocthoaitran/hello-teku
