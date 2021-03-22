@@ -10,22 +10,20 @@ jobs:
     if: ${{ !github.event.issue.pull_request }} && constrains(github.event.comment.body, 'Release \#')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup env
+        uses: actions/setup-node@v1
         with:
           node-version: 14
-      - run: yarn install
-      - run: yarn run build
-      - run: yarn publish --access public
+      - name: Install
+        run: yarn install
+      - name: Publish
+        run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-  auto_move:
-    name: Auto move tasks to Released
-    if: ${{ success() }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: hungluu/move-tasks@v2
+      - name: Auto Move
+        uses: hungluu/move-tasks@v2
         with:
           actionToken: ${{secrets.GIT_TOKEN}}
           repository: quocthoaitran/hello-teku
