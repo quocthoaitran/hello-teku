@@ -21,8 +21,8 @@ jobs:
         run: yarn install
       - name: Publish
         run: yarn publish --access public
-#         env:
-#           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Auto Move
         uses: hungluu/move-tasks@v2
         with:
