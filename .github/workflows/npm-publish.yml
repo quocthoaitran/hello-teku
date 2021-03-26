@@ -8,7 +8,7 @@ jobs:
   publish:
     name: Setup Package
     if: >
-      ${{ !github.event.issue.pull_request }} 
+      !github.event.issue.pull_request
       && constrains(github.event.comment.body, 'Release \#')
       && constrains(github.event.issue.labels.*.name, 'package:')
     runs-on: ubuntu-latest
