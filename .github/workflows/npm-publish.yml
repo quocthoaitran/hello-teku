@@ -10,7 +10,7 @@ jobs:
     if: >
       ${{ !github.event.issue.pull_request }} 
       && constrains(github.event.comment.body, 'Release \#')
-      && constrains(github.event.issue.labels.*.name, 'package:*')
+      && constrains(github.event.issue.labels.*.name, 'package:')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
