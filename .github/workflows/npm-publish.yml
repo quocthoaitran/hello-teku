@@ -10,7 +10,7 @@ jobs:
     if: >
       !github.event.issue.pull_request
       && contains(github.event.comment.body, 'Release #')
-      && contains(github.event.issue.labels.*.name, 'package*')
+      && contains(github.event.issue.labels.*.name, 'package:test')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
