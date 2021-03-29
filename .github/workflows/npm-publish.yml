@@ -8,7 +8,7 @@ jobs:
   publish:
     name: Setup Package
     if: >
-      ${{ !github.event.issue.pull_request }} 
+      !github.event.issue.pull_request
       && contains(github.event.comment.body, 'Release #')
       && contains(join(github.event.issue.labels.*.name, ', '), 'package:')
     runs-on: ubuntu-latest
