@@ -19,11 +19,12 @@ jobs:
         uses: tyankatsu0105/read-package-version-actions@v1
         id: package-version
       - name: Create comment on issue
-        token: ${{secrets.GIT_TOKEN}}
-        repository: quocthoaitran/hello-teku
+        uses: peter-evans/create-or-update-comment@v1
         with:
-          issue-number: {{ github.event.issue.number }}
-          body: `Publishing ${{ package-version.outputs.name}}:${{ package-version.outputs.version }}`
+          token: ${{secrets.GIT_TOKEN}}
+          repository: quocthoaitran/hello-teku
+          issue-number: ${{ github.event.issue.number }}
+          body: Publishing ${{ package-version.outputs.name}}:${{ package-version.outputs.version }}
       - name: Setup env
         uses: actions/setup-node@v1
         with:
