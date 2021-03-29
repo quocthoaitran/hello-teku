@@ -5,7 +5,7 @@ on:
     types: [created, edited]
 
 jobs:
-  publish:
+  setup:
     name: Setup Package
     if: >
       !github.event.issue.pull_request
@@ -15,6 +15,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+
+  comment:
+    name: Comment
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
       - name: Read package.json
         uses: tyankatsu0105/read-package-version-actions@v1
         id: package-version
@@ -25,6 +31,12 @@ jobs:
           repository: quocthoaitran/hello-teku
           issue-number: ${{ github.event.issue.number }}
           body: Publishing ${{ steps.package-version.outputs.name}}:${{ steps.package-version.outputs.version }}
+
+  build:
+    name: Build
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
       - name: Setup env
         uses: actions/setup-node@v1
         with:
@@ -32,10 +44,22 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: Install
         run: yarn install
+
+  publish:
+    name: Publish
+    needs: [setup, build]
+    runs-on: ubuntu-latest
+    steps:
       - name: Publish
         run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+  publish:
+    name: Publish
+    needs: [setup, build, publish]
+    runs-on: ubuntu-latest
+    steps:
       - name: Auto Move
         uses: hungluu/move-tasks@v2
         with:
@@ -47,4 +71,4 @@ jobs:
               > columns(name is Merged)
               > cards(contentId is ${{ github.event.issue.id }})
           toColumn: $project > columns(name is Released)
-    
+          
