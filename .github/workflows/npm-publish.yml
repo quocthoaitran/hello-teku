@@ -55,8 +55,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
-  publish:
-    name: Publish
+  move_task:
+    name: Move task
     needs: [setup, build, publish]
     runs-on: ubuntu-latest
     steps:
